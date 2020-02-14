@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Title</title>
+        <meta charset="utf-8" />
+        <style>
+            @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+            @import url(
+                https://fonts.googleapis.com/css?family=Droid+Serif:400,
+                700,
+                400italic
+            );
+            @import url(
+                https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,
+                700,
+                400italic
+            );
+
+            body {
+                font-family: 'Yanone Kaffeesatz';
+            }
+            h1,
+            h2,
+            h3 {
+                font-family: 'Yanone Kaffeesatz';
+                font-weight: normal;
+            }
+            .remark-code,
+            .remark-inline-code {
+                font-family: 'Ubuntu Mono';
+                width: 450px;
+                float: left;
+                margin-left: -50px;
+            }
+            ul,
+            ol {
+                text-align: left;
+                display: inline-block;
+            }
+            li {
+                padding-bottom: 2rem;
+                font-size: 2rem;
+            }
+            .red {
+                color: red;
+            }
+            .dark {
+                background-color: rgb(39, 40, 34);
+                color: rgb(243, 243, 243);
+            }
+            .dark h1 {
+                color: white;
+            }
+            .green {
+                color: green;
+            }
+            table,
+            td,
+            th {
+                border: 1px solid black;
+            }
+            table {
+                margin-left: auto;
+                margin-right: auto;
+                font-size: 1.5rem;
+                width: 300px;
+                float: right;
+            }
+            .chart {
+                width: 400px;
+                /* position: sticky; */
+            }
+            .result {
+                width: 100%;
+                height: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <textarea id="source">
+
+class: center, middle, dark
+
+# analyzing algorithms
+github.com/toddpla/computer-science
+
+---
+class: center
+# contents
+----
+
+1. why?
+1. nth notation
+1. big O
+1. examples
+
+---
+class: center, middle, dark
+# why do we want to analyze algorithms? 🧐 
+
+???
+Often problems can have many algorithmic solutions.  
+With small inputs the difference in performance of these algorithms may be negligible.  
+However, if we double the input or times it by 1000 or times it by infinity then we want to know how the performance will be effected.
+--
+##### Scaling
+--
+
+#### Scaling
+--
+
+### Scaling
+--
+
+## Scaling
+--
+
+# Scaling
+
+---
+class: center
+# nth notation
+<img src="https://toddpla.s3.eu-west-2.amazonaws.com/n-notation-graph.png" width="450px">
+
+https://en.wikipedia.org/wiki/Time_complexity
+
+---
+class: center
+# n = 1
+----
+--
+
+.left[
+```js
+function printFirstItemInSomeArray(someArray) {
+    console.log(someArray[0]);
+}
+```
+]
+
+--
+
+.result-table[
+|input|executions|
+|:-:|:-:|
+|0|<div id="const-0" onclick="showResult('const', 0, 1)"> - </div>|
+|1|<div id="const-1" onclick="showResult('const', 1, 1)"> - </div>|
+|2|<div id="const-2" onclick="showResult('const', 2, 1)"> - </div>|
+|3|<div id="const-3" onclick="showResult('const', 3, 1)"> - </div>|
+|4|<div id="const-4" onclick="showResult('const', 4, 1)"> - </div>|
+|5|<div id="const-5" onclick="showResult('const', 5, 1)"> - </div>|
+|6|<div id="const-6" onclick="showResult('const', 6, 1)"> - </div>|
+|7|<div id="const-7" onclick="showResult('const', 7, 1)"> - </div>|
+|8|<div id="const-8" onclick="showResult('const', 8, 1)"> - </div>|
+|9|<div id="const-9" onclick="showResult('const', 9, 1)"> - </div>|
+|10|<div id="const-10" onclick="showResult('const', 10, 1)"> - </div>|
+<!-- |∞|<span hidden="true" id="const-10">1</span>|<input type="checkbox" onclick="showResult('const', 10, 1)"/>| -->
+]
+
+.chart[
+<canvas id="constChart"></canvas>
+]
+
+---
+class: center
+# n = n
+----
+--
+
+.left[```js
+function printAllItemsInSomeArrayOnce(someArray) {
+    for (let i = 0; i < someArray.length; i++) {
+        console.log(someArray[i]);
+    }
+}
+```]
+
+--
+
+.result-table[
+|input|result|
+|:-:|:-:|
+|0|<div id="nth-0" onclick="showResult('nth', 0, 0)"> - </div>|
+|1|<div id="nth-1" onclick="showResult('nth', 1, 1)"> - </div>|
+|2|<div id="nth-2" onclick="showResult('nth', 2, 2)"> - </div>|
+|3|<div id="nth-3" onclick="showResult('nth', 3, 3)"> - </div>|
+|4|<div id="nth-4" onclick="showResult('nth', 4, 4)"> - </div>|
+|5|<div id="nth-5" onclick="showResult('nth', 5, 5)"> - </div>|
+|6|<div id="nth-6" onclick="showResult('nth', 6, 6)"> - </div>|
+|7|<div id="nth-7" onclick="showResult('nth', 7, 7)"> - </div>|
+|8|<div id="nth-8" onclick="showResult('nth', 8, 8)"> - </div>|
+|9|<div id="nth-9" onclick="showResult('nth', 9, 9)"> - </div>|
+|10|<div id="nth-10" onclick="showResult('nth', 10, 10)"> - </div>|
+<!-- |∞|<span hidden="true" id="n-infinity">∞</span>|<input type="checkbox" onclick="showResult('n-infinity')"/>| -->
+]
+
+.chart[
+<canvas id="nthChart"></canvas>
+]
+
+---
+class: center
+# n = n<sup>2</sup>
+----
+--
+
+.left[```js
+function printAllCombinationsInAnArray(someArray) {
+    for (let i = 0; i < someArray.length; i++) {
+        for (let j = 0; j < someArray.length; j++) {
+            console.log(someArray[i], someArray[j]);
+        }
+    }
+}
+```]
+--
+
+.result-table[
+|input|result|
+|:-:|:-:|
+|0|<div id="n2-0" onclick="showResult('n2', 0, 0)"> - </div>|
+|1|<div id="n2-1" onclick="showResult('n2', 1, 1)"> - </div>|
+|2|<div id="n2-2" onclick="showResult('n2', 2, 4)"> - </div>|
+|3|<div id="n2-3" onclick="showResult('n2', 3, 9)"> - </div>|
+|4|<div id="n2-4" onclick="showResult('n2', 4, 16)"> - </div>|
+|5|<div id="n2-5" onclick="showResult('n2', 5, 25)"> - </div>|
+|6|<div id="n2-6" onclick="showResult('n2', 6, 36)"> - </div>|
+|7|<div id="n2-7" onclick="showResult('n2', 7, 49)"> - </div>|
+|8|<div id="n2-8" onclick="showResult('n2', 8, 64)"> - </div>|
+|9|<div id="n2-9" onclick="showResult('n2', 9, 81)"> - </div>|
+|10|<div id="n2-10" onclick="showResult('n2', 10, 100)"> - </div>|
+]
+
+.chart[
+<canvas id="n2Chart"></canvas>
+]
+
+---
+class: center
+## n = log<sub>2</sub>(n)
+----
+--
+
+.left[```js
+function printAllCombinationsInAnArray(someArray) {
+    for (let i = 0; i < someArray.length; i++) {
+        for (let j = 0; j < someArray.length; j++) {
+            console.log(someArray[i], someArray[j]);
+        }
+    }
+}
+```]
+
+.result-table[
+|input|result|
+|:-:|:-:|
+|1|<span hidden="true" id="squared-one">1</span>|<input type="checkbox" onclick="showResult('squared-one')"/>|
+|2|<span hidden="true" id="squared-two">4</span>|<input type="checkbox" onclick="showResult('squared-two')"/>|
+|3|<span hidden="true" id="squared-three">9</span>|<input type="checkbox" onclick="showResult('squared-three')"/>|
+|4|<span hidden="true" id="squared-four">16</span>|<input type="checkbox" onclick="showResult('squared-four')"/>|
+|5|<span hidden="true" id="squared-five">25</span>|<input type="checkbox" onclick="showResult('squared-five')"/>|
+|6|<span hidden="true" id="squared-six">36</span>|<input type="checkbox" onclick="showResult('squared-six')"/>|
+|7|<span hidden="true" id="squared-seven">49</span>|<input type="checkbox" onclick="showResult('squared-seven')"/>|
+|8|<span hidden="true" id="squared-eight">64</span>|<input type="checkbox" onclick="showResult('squared-eight')"/>|
+|9|<span hidden="true" id="squared-nine">81</span>|<input type="checkbox" onclick="showResult('squared-nine')"/>|
+|10|<span hidden="true" id="squared-ten">100</span>|<input type="checkbox" onclick="showResult('squared-ten')"/>|
+|∞|<span hidden="true" id="squared-infinity">∞<sup>2</sup></span>|<input type="checkbox" onclick="showResult('squared-infinity')"/>|
+]
+
+
+---
+.center[little o]
+???
+Some stuff about little O
+--
+.center[big O]
+???
+Some stuff about big O
+--
+.center[big theta]
+???
+some suff about big theta
+--
+.center[little theta]
+--
+.center[big theta]
+
+little o (omicon), big O, big Θ (theta), little ω (omega), big Ω (omega)
+
+---
+
+</textarea
+        >
+        <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+        <script>
+            var slideshow = remark.create();
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+        <!-- <script>
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'line',
+
+                // The data for our dataset
+                data: {
+                    labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                    datasets: [
+                        {
+                            // label: 'My First dataset',
+                            backgroundColor: 0,
+                            borderColor: 'rgb(255, 99, 132)',
+                            data: [0, 10, 5, 2, 20, 30, 45]
+                        }
+                        // {
+                        //     label: 'My First dataset',
+                        //     backgroundColor: 'rgb(255, 99, 132)',
+                        //     borderColor: 'rgb(255, 99, 132)',
+                        //     data: [0, 10, 5, 2, 20, 30, 45]
+                        // }
+                    ]
+                },
+
+                // Configuration options go here
+                options: {}
+            });
+        </script> -->
+        <script src="utils.js"></script>
+    </body>
+</html>
