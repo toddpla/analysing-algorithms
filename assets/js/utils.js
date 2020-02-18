@@ -1,42 +1,95 @@
-const charts = {
-    const: {
-        ctx: document.getElementById(`constChart`).getContext('2d'),
-    },
-    nth: {
-        ctx: document.getElementById(`nthChart`).getContext('2d'),
-    },
-    n2: {
-        ctx: document.getElementById(`n2Chart`).getContext('2d'),
+class Notation {
+    constructor(inputs) {
+        this.inputs = inputs;
+    }
+
+}
+
+class Constant extends Notation {
+    calculate() {
+        return 1;
     }
 }
 
-for (let chart in charts) {
-    charts[chart].chart = new Chart(charts[chart].ctx, {
-        // The type of chart we want to create
+class Nth extends Notation {
+    calculate(i) {
+        return this.inputs[i];
+    }
+}
+
+class N2 extends Notation {
+    calculate(i) {
+        return this.inputs[i] * this.inputs[i];
+    }
+}
+
+class Log2n extends Notation {
+    calculate(i) {
+        const result = parseFloat(Math.log2(this.inputs[i])).toFixed(2);
+        console.log(result)
+        return isFinite(result) ? result : 0;
+    }
+}
+
+const range0To5 = [0, 1, 2, 3, 4, 5];
+
+const notations = {
+    const: new Constant(range0To5),
+    nth: new Nth(range0To5),
+    n2: new N2(range0To5),
+    log2n: new Log2n([100, 200, 300, 400, 500, 600])
+}
+
+const showResult = (notation, index, value) => {
+    document.getElementById(`${notation}-${index}`).innerText = value
+    const chart = notations[notation].chart;
+    chart.data.labels[index] = notations[notation].inputs[index];
+    chart.data.datasets[0].data[index] = value;
+    chart.update()
+};
+
+for (let n in notations) {
+    const rows = [];
+    const results = [];
+    const notation = notations[n];
+    for (let i = 0; i <= 5; i++) {
+        const result = notation.calculate(i);
+        rows.push(
+            `<tr>
+                <td>${notation.inputs[i]}</td><td><div id="${n}-${i}" onclick="showResult('${n}', ${i}, ${result})"> - </div></td>
+            </tr>`)
+        results.push(result)
+    }
+    const html = (
+        `<table class="results">
+            <tr>
+                <th>array size</th><th>executions</th>
+            <tr>
+            ${rows.join('')}
+        </table>`
+    );
+    document.getElementById(`${n}Table`).innerHTML = html;
+    const ctx = document.getElementById(`${n}Chart`).getContext('2d');
+    notation.chart = new Chart(ctx, {
         type: 'line',
-        // The data for our dataset
         data: {
-            labels: [
-                0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-            ],
             datasets: [
                 {
                     fill: false,
-                    label: chart,
+                    label: results,
                     backgroundColor: 0,
                     borderColor: 'rgb(255, 99, 132)',
                     data: []
                 },
             ]
         },
-        options: {}
+        options: {
+            legend: {
+                display: false
+            }
+        }
     });
 }
 
-const showResult = (reference, index, value) => {
-    document.getElementById(`${reference}-${index}`).innerText = value
-    const chart = charts[reference].chart;
-    // chart.data.labels[index] = index;
-    chart.data.datasets[0].data[index] = value;
-    chart.update()
-};
+const json = require('./assets/json/large-sorted-array.json');
+console.log(json[0])

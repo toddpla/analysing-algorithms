@@ -27,10 +27,7 @@
             }
             .remark-code,
             .remark-inline-code {
-                font-family: 'Ubuntu Mono';
-                width: 450px;
-                float: left;
-                margin-left: -50px;
+                font-size: 1rem;
             }
             ul,
             ol {
@@ -59,16 +56,22 @@
             th {
                 border: 1px solid black;
             }
+            td,
+            th {
+                width: 160px;
+            }
+            .results {
+                width: 320px;
+                float: right;
+            }
             table {
                 margin-left: auto;
                 margin-right: auto;
                 font-size: 1.5rem;
-                width: 300px;
-                float: right;
             }
             .chart {
+                margin-top: 50px;
                 width: 400px;
-                /* position: sticky; */
             }
             .result {
                 width: 100%;
@@ -82,7 +85,7 @@
 class: center, middle, dark
 
 # analyzing algorithms
-github.com/toddpla/computer-science
+toddpla.github.io/analysing-algorithms
 
 ---
 class: center
@@ -95,38 +98,93 @@ class: center
 1. examples
 
 ---
+class: middle
+
+### algorithm:
+### a process or set of rules to be followed in calculations or other problem-solving operations, especially by a computer.
+
+.right[
+![](assets/images/badger.gif)
+]
+
+---
+
 class: center, middle, dark
-# why do we want to analyze algorithms? 🧐 
+# why do we want to analyze algorithms? 🧐
 
 ???
-Often problems can have many algorithmic solutions.  
+Problems have many solutions.  
+  
 With small inputs the difference in performance of these algorithms may be negligible.  
+   
 However, if we double the input or times it by 1000 or times it by infinity then we want to know how the performance will be effected.
 --
-##### Scaling
+##### scaling
 --
 
-#### Scaling
+#### scaling
 --
 
-### Scaling
+### scaling
 --
 
-## Scaling
+## scaling
 --
 
-# Scaling
+# scaling
 
 ---
 class: center
-# nth notation
+## some math 🤓
+----
+
+--
+
+## exponential
+
+--
+
+## logarithmic
+
+--
+
+## factorial
+
+---
+class: center
+## nth notation
+----
+
 <img src="assets/images/n-notation-graph.png" width="450px">
 
 https://en.wikipedia.org/wiki/Time_complexity
 
+???
+n is a function n  
+
 ---
 class: center
-# n = 1
+## some numbers 🥳 
+----
+
+<table>
+    <tr><th>input</th><th>n!</th><th>2<sup>n</sup></th><th>n<sup>2</sup></th><th>n</th><th>log<sub>2</sub>(n)</th><th>1</th></tr>
+    <tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td></tr>
+    <tr><td>2</td><td>2</td><td>4</td><td>2</td><td>2</td><td>1</td><td>1</td></tr>
+    <tr><td>3</td><td>6</td><td>8</td><td>9</td><td>3</td><td>1.58</td><td>1</td></tr>
+    <tr><td>4</td><td>24</td><td>16</td><td>16</td><td>4</td><td>2</td><td>1</td></tr>
+    <tr><td>5</td><td>120</td><td>32</td><td>25</td><td>5</td><td>2.32</td><td>1</td></tr>
+    <tr><td>6</td><td>720</td><td>64</td><td>36</td><td>6</td><td>2.58</td><td>1</td></tr>
+    <tr><td>7</td><td>5040</td><td>128</td><td>49</td><td>7</td><td>2.81</td><td>1</td></tr>
+    <tr><td>8</td><td>40320</td><td>256</td><td>64</td><td>8</td><td>3</td><td>1</td></tr>
+    <tr><td>9</td><td>362880</td><td>512</td><td>81</td><td>9</td><td>3.16</td><td>1</td></tr>
+    <tr><td>10</td><td>3628800</td><td>1024</td><td>100</td><td>10</td><td>3.32</td><td>1</td></tr>
+</table>
+
+
+---
+class: center
+## n = 1
 ----
 --
 
@@ -135,27 +193,11 @@ class: center
 function printFirstItemInSomeArray(someArray) {
     console.log(someArray[0]);
 }
-```
-]
+```]
 
 --
 
-.result-table[
-|input|executions|
-|:-:|:-:|
-|0|<div id="const-0" onclick="showResult('const', 0, 1)"> - </div>|
-|1|<div id="const-1" onclick="showResult('const', 1, 1)"> - </div>|
-|2|<div id="const-2" onclick="showResult('const', 2, 1)"> - </div>|
-|3|<div id="const-3" onclick="showResult('const', 3, 1)"> - </div>|
-|4|<div id="const-4" onclick="showResult('const', 4, 1)"> - </div>|
-|5|<div id="const-5" onclick="showResult('const', 5, 1)"> - </div>|
-|6|<div id="const-6" onclick="showResult('const', 6, 1)"> - </div>|
-|7|<div id="const-7" onclick="showResult('const', 7, 1)"> - </div>|
-|8|<div id="const-8" onclick="showResult('const', 8, 1)"> - </div>|
-|9|<div id="const-9" onclick="showResult('const', 9, 1)"> - </div>|
-|10|<div id="const-10" onclick="showResult('const', 10, 1)"> - </div>|
-<!-- |∞|<span hidden="true" id="const-10">1</span>|<input type="checkbox" onclick="showResult('const', 10, 1)"/>| -->
-]
+<div id="constTable">test</div>
 
 .chart[
 <canvas id="constChart"></canvas>
@@ -163,7 +205,7 @@ function printFirstItemInSomeArray(someArray) {
 
 ---
 class: center
-# n = n
+## n = n
 ----
 --
 
@@ -177,22 +219,7 @@ function printAllItemsInSomeArrayOnce(someArray) {
 
 --
 
-.result-table[
-|input|result|
-|:-:|:-:|
-|0|<div id="nth-0" onclick="showResult('nth', 0, 0)"> - </div>|
-|1|<div id="nth-1" onclick="showResult('nth', 1, 1)"> - </div>|
-|2|<div id="nth-2" onclick="showResult('nth', 2, 2)"> - </div>|
-|3|<div id="nth-3" onclick="showResult('nth', 3, 3)"> - </div>|
-|4|<div id="nth-4" onclick="showResult('nth', 4, 4)"> - </div>|
-|5|<div id="nth-5" onclick="showResult('nth', 5, 5)"> - </div>|
-|6|<div id="nth-6" onclick="showResult('nth', 6, 6)"> - </div>|
-|7|<div id="nth-7" onclick="showResult('nth', 7, 7)"> - </div>|
-|8|<div id="nth-8" onclick="showResult('nth', 8, 8)"> - </div>|
-|9|<div id="nth-9" onclick="showResult('nth', 9, 9)"> - </div>|
-|10|<div id="nth-10" onclick="showResult('nth', 10, 10)"> - </div>|
-<!-- |∞|<span hidden="true" id="n-infinity">∞</span>|<input type="checkbox" onclick="showResult('n-infinity')"/>| -->
-]
+<div id="nthTable"></div>
 
 .chart[
 <canvas id="nthChart"></canvas>
@@ -200,7 +227,7 @@ function printAllItemsInSomeArrayOnce(someArray) {
 
 ---
 class: center
-# n = n<sup>2</sup>
+## n = n<sup>2</sup>
 ----
 --
 
@@ -215,79 +242,121 @@ function printAllCombinationsInAnArray(someArray) {
 ```]
 --
 
-.result-table[
-|input|result|
-|:-:|:-:|
-|0|<div id="n2-0" onclick="showResult('n2', 0, 0)"> - </div>|
-|1|<div id="n2-1" onclick="showResult('n2', 1, 1)"> - </div>|
-|2|<div id="n2-2" onclick="showResult('n2', 2, 4)"> - </div>|
-|3|<div id="n2-3" onclick="showResult('n2', 3, 9)"> - </div>|
-|4|<div id="n2-4" onclick="showResult('n2', 4, 16)"> - </div>|
-|5|<div id="n2-5" onclick="showResult('n2', 5, 25)"> - </div>|
-|6|<div id="n2-6" onclick="showResult('n2', 6, 36)"> - </div>|
-|7|<div id="n2-7" onclick="showResult('n2', 7, 49)"> - </div>|
-|8|<div id="n2-8" onclick="showResult('n2', 8, 64)"> - </div>|
-|9|<div id="n2-9" onclick="showResult('n2', 9, 81)"> - </div>|
-|10|<div id="n2-10" onclick="showResult('n2', 10, 100)"> - </div>|
-]
+<div id="n2Table"></div>
 
 .chart[
 <canvas id="n2Chart"></canvas>
 ]
 
+
 ---
 class: center
-## n = log<sub>2</sub>(n)
+
+## n = ???
 ----
 --
 
 .left[```js
-function printAllCombinationsInAnArray(someArray) {
-    for (let i = 0; i < someArray.length; i++) {
-        for (let j = 0; j < someArray.length; j++) {
-            console.log(someArray[i], someArray[j]);
-        }
+function findInSortedArray(sortedArray, someNumber) {
+    for (let i = 0; i < sortedArray.length; i++) {
+        if (sortedArray[i] === someNumber) return i;
     }
 }
 ```]
+--
+.left[```js
+const sortedArray = [6, 11, 13, 21, 26, 42, 64, 78, 82, 98];
+```]
+--
+.left[```js
+console.log(findInSortedArray(sortedArray, 6));
+//--> executions: 1
+```]
+--
+.left[```js
+console.log(findInSortedArray(sortedArray, 21));
+//--> executions: 4
+```]
+--
+.left[```js
+console.log(findInSortedArray(sortedArray, 82));
+//--> executions: 9
+```]
 
-.result-table[
-|input|result|
-|:-:|:-:|
-|1|<span hidden="true" id="squared-one">1</span>|<input type="checkbox" onclick="showResult('squared-one')"/>|
-|2|<span hidden="true" id="squared-two">4</span>|<input type="checkbox" onclick="showResult('squared-two')"/>|
-|3|<span hidden="true" id="squared-three">9</span>|<input type="checkbox" onclick="showResult('squared-three')"/>|
-|4|<span hidden="true" id="squared-four">16</span>|<input type="checkbox" onclick="showResult('squared-four')"/>|
-|5|<span hidden="true" id="squared-five">25</span>|<input type="checkbox" onclick="showResult('squared-five')"/>|
-|6|<span hidden="true" id="squared-six">36</span>|<input type="checkbox" onclick="showResult('squared-six')"/>|
-|7|<span hidden="true" id="squared-seven">49</span>|<input type="checkbox" onclick="showResult('squared-seven')"/>|
-|8|<span hidden="true" id="squared-eight">64</span>|<input type="checkbox" onclick="showResult('squared-eight')"/>|
-|9|<span hidden="true" id="squared-nine">81</span>|<input type="checkbox" onclick="showResult('squared-nine')"/>|
-|10|<span hidden="true" id="squared-ten">100</span>|<input type="checkbox" onclick="showResult('squared-ten')"/>|
-|∞|<span hidden="true" id="squared-infinity">∞<sup>2</sup></span>|<input type="checkbox" onclick="showResult('squared-infinity')"/>|
+---
+class: center, middle, dark
+# o, O, Θ, Ω and ω
+
+---
+
+class: center
+# o, O, Θ, Ω and ω
+
+## Represent boundaries
+
+<table>
+    <tr>
+        <td>little omicron</td>
+        <td>o(n)</td>
+        <td>faster</td>
+    </tr>
+    <tr style="background-color: black; color: white">
+        <td><strong>big omicron</strong></td>
+        <td><strong>O(n)</strong></td>
+        <td>faster or equal</td>
+    </tr>
+    <tr>
+        <td>big theta</td>
+        <td>Θ(n)</td>
+        <td>equal to</td>
+    </tr>
+    <tr>
+        <td>big omega</td>
+        <td>Ω(n)</td>
+        <td>slower or equal</td>
+    </tr>
+    <tr>
+        <td>little omega</td>
+        <td>ω(n)</td>
+        <td>slower</td>
+    </tr>
+</table>
+???
+Go back through each example and demonstrate the big O notation
+
+---
+class: center
+## n = log<sub>2</sub>(n)
+
+----
+
+.left[
+```js
+function logarithmicSearch(item) {
+    let left = 0;
+    let right = largeSortedArray.length - 1;
+    let middle;
+    while (left <= right) {
+        middle = Math.floor((left + right) / 2);
+        if (largeSortedArray[middle] < item) left = middle + 1;
+        else if (largeSortedArray[middle] > item) right = middle - 1;
+        else return middle;
+    }
+}
+```
 ]
 
+<div id="log2nTable"></div>
+
+.chart[
+<canvas id="log2nChart"></canvas>
+]
 
 ---
-.center[little o]
-???
-Some stuff about little O
---
-.center[big O]
-???
-Some stuff about big O
---
-.center[big theta]
-???
-some suff about big theta
---
-.center[little theta]
---
-.center[big theta]
+class: center, middle
 
-little o (omicon), big O, big Θ (theta), little ω (omega), big Ω (omega)
-
----
+![](assets/images/badger.gif)  
+# thanks
 
 </textarea
         >
@@ -296,36 +365,10 @@ little o (omicon), big O, big Θ (theta), little ω (omega), big Ω (omega)
             var slideshow = remark.create();
         </script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-
-        <!-- <script>
-            var ctx = document.getElementById('myChart').getContext('2d');
-            var chart = new Chart(ctx, {
-                // The type of chart we want to create
-                type: 'line',
-
-                // The data for our dataset
-                data: {
-                    labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-                    datasets: [
-                        {
-                            // label: 'My First dataset',
-                            backgroundColor: 0,
-                            borderColor: 'rgb(255, 99, 132)',
-                            data: [0, 10, 5, 2, 20, 30, 45]
-                        }
-                        // {
-                        //     label: 'My First dataset',
-                        //     backgroundColor: 'rgb(255, 99, 132)',
-                        //     borderColor: 'rgb(255, 99, 132)',
-                        //     data: [0, 10, 5, 2, 20, 30, 45]
-                        // }
-                    ]
-                },
-
-                // Configuration options go here
-                options: {}
-            });
-        </script> -->
-        <script src="utils.js"></script>
+        <script
+            type="text/javascript"
+            src="assets/json/large-sorted-array.json"
+        ></script>
+        <script src="assets/js/utils.js"></script>
     </body>
 </html>
